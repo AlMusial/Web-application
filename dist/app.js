@@ -32,6 +32,8 @@ Database.connect().then(() => {
     app.get('/', homeController.index);
     app.get('/message', homeController.basic);
     app.get('/About', homeController.about);
+    app.get('/addUser', homeController.form);
+    app.get('/add', homeController.newTask);
     app.set('view engine', 'pug');
 }).catch(() => {
     process.exit(1);

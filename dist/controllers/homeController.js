@@ -17,4 +17,16 @@ exports.basic = (req, res) => {
         randomText: req.query.text
     });
 };
+exports.form = (req, res) => {
+    res.render("form", {
+        title: "Create new User",
+        randomText: req.query.text
+    });
+};
+exports.newTask = (req, res) => {
+    res.render("form", {
+        title: "create new task",
+        randomText: req.query.text
+    });
+};
 //# sourceMappingURL=homeController.js.map

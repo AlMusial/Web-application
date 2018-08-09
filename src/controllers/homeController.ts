@@ -17,4 +17,16 @@ export let basic = (req: Request, res: Response) => {
     title:"message",
     randomText: req.query.text
   });
+};
+export let form = (req: Request, res: Response) => {
+  res.render("form", {
+    title:"Create new User",
+    randomText: req.query.text
+  });
+};
+export let newTask = (req: Request, res: Response) => {
+  res.render("form", {
+    title:"create new task",
+    randomText: req.query.text
+  });
 }
