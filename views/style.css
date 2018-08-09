@@ -1,0 +1,62 @@
+#container
+{
+width: 100%;
+margin-left: auto;
+margin-right: auto;
+}
+#logo
+{
+width: 98%;
+background-color: black;
+color: white;
+padding: 1%;
+text-align: center;
+}
+#nav
+{
+float:left;
+background-color: lightgray;
+width: 8%;
+min-height: 650px;
+padding: 1%;
+}
+#content
+{
+float: left;
+padding: 2%;
+width: 76%;
+min-height: 620px;
+background-color: rgb(4, 4, 41);
+text-align: center;
+color: white;
+}
+#ad
+{
+float: left;
+width: 8%;
+min-height: 650px;
+padding: 1%;
+background-color: lightblue;
+}
+#footer
+{
+clear: both;
+background-color: black;
+color: white;
+text-align: center;
+padding: 1%;
+width: 98%;
+}
+.about_website
+{
+    color:rgb(151, 158, 163);
+    font-family: fantasy;
+    font-size: 120px;
+    font-weight: bold;
+}
+.button
+{
+    text-decoration: none;
+    color: white;
+    font-size:60px;
+}
