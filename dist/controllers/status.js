@@ -1,12 +1,15 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.Hi = (req, res) => {
-    res.send("hello");
-};
-exports.hello = (req, res) => {
-    res.send("how's it going?");
-};
-exports.awesome = (req, res) => {
-    res.send("EVERYTHING IS AWESOME");
-};
+/*import { Request, Response } from 'express'
+
+export let Hi = (req: Request, res: Response) => {
+    res.send("hello")
+}
+
+export let hello = (req: Request, res: Response) => {
+    res.send("how's it going?")
+}
+
+export let awesome = (req: Request, res: Response) => {
+    res.send("EVERYTHING IS AWESOME")
+}
+*/ 
 //# sourceMappingURL=status.js.map
