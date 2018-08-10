@@ -6,13 +6,22 @@ var mongoose = require('mongoose'); // Adding mongoose
 var app = express();
 var taskSchema = require("./db/schemas/task"); // load collection schema from task.ts
 var userSchema = require("./db/schemas/user");
+////////////////////////////////////////////////////////
+var bodyParser = require('body-parser');
+app.use(bodyParser.json()); // to support JSON-encoded bodies
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
+///////////////////////////////////////////////////////
 app.listen(3000);
 app.get('/', homeController.index);
 app.get('/message', homeController.basic);
 app.get('/About', homeController.about);
-app.get('/addUser', homeController.form);
-app.get('/add', homeController.newTask);
+app.get('/add', homeController.newUser);
 app.set('view engine', 'pug');
+app.get('/add', function (sReq, sRes) {
+    var email = sReq.query.email;
+});
 mongoose.connect('mongodb://localhost/TODO', {
     useMongoClient: true,
     autoIndex: false,
@@ -35,14 +44,17 @@ Task.find().byNotDone().exec(function (err, task) {
 User.find().byNotDone().exec(function (err, user) {
     console.log(user);
 });
+let name;
+let email;
+let password;
 // create new obiekt
 let newTask = new Task({
-    name: "sleep",
+    name: name,
     done: false,
     deadline: new Date()
 });
 let newUser = new User({
-    email: "clair@user",
+    email: email,
     password: "sadas"
 });
 // save

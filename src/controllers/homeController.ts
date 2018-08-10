@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 var path =require('path');
+var email: any;
 
 export let index = (req: Request, res: Response) => {
   res.render("page-a", {
@@ -18,15 +19,9 @@ export let basic = (req: Request, res: Response) => {
     randomText: req.query.text
   });
 };
-export let form = (req: Request, res: Response) => {
-  res.render("form", {
-    title:"Create new User",
-    randomText: req.query.text
-  });
-};
-export let newTask = (req: Request, res: Response) => {
-  res.render("form", {
-    title:"create new task",
-    randomText: req.query.text
+export let newUser = (req: Request, res: Response) => {
+  res.render("form-task", {
+    title:"create new User",
+    email : req.query.text
   });
 }
