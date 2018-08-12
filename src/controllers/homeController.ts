@@ -20,7 +20,7 @@ export let basic = (req: Request, res: Response) => {
   });
 };
 export let newUser = (req: Request, res: Response) => {
-  res.render("form-task", {
+  res.render("formTask", {
     title:"create new User",
     email : req.query.text
   });

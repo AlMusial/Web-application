@@ -19,7 +19,7 @@ exports.basic = (req, res) => {
     });
 };
 exports.newUser = (req, res) => {
-    res.render("form-task", {
+    res.render("formTask", {
         title: "create new User",
         email: req.query.text
     });

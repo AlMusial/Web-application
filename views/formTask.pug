@@ -1,0 +1,20 @@
+extend layout.pug
+
+block content
+    #content 
+        #myDIV.header
+            h2 My To Do List
+            input(type='text', id='myInput', placeholder='Title...')
+            span.addBtn(onclick='newElement()') Add
+            br
+            br
+            ul
+                #myUL
+                    li Hit the gym
+                    li.checked Pay bills
+                    li Meet George
+                    li Buy eggs
+                    li Read a book
+                    li Organize office
+                script
+                    include addTask.js
