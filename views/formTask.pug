@@ -1,15 +1,16 @@
 extend layout.pug
-
+ 
 block content
-    #content 
+    #content
         #myDIV.header
             h2 My To Do List
-            input(type='text', id='myInput', placeholder='Title...')
-            span.addBtn(onclick='newElement()') Add
-            br
-            br
-            ul
-                #myUL
-                p #{tasks}
-                script
-                    include addTask.js
+            form.form-horizontal(id='task-form', method='post')
+                input(type='text', name='myInput', id='myInput', placeholder='Title...')
+                button.btn.btn-success(type='submit') Add
+                br
+                br
+                ul
+                    #myUL
+                    p #{task}
+                    script
+                        include addTask.js

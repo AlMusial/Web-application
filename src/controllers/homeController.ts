@@ -52,16 +52,19 @@ User.find().byNotDone().exec(function (err: any, user: any) {
 });
 // create new obiect
 
-let newTask = new Task({
-  name: '',
-  done: false,
-  deadline: new Date()
-});
+export let newUserPost = (req: Request, res: Response) => {
+  let newTask = new Task({
+      name: req.body.myInput,
+      done: false,
+      deadline: new Date()
+  });
+  newTask.save();
+  return res.redirect('back');
+}
 
 let newUserr = new User({
-  email:'kupa@s',
+  email:'s@s',
   password: "sadas"
 });
-// save
-newTask.save();
-newUserr.save();
+
+//newUserr.save();

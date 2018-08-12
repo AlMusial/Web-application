@@ -18,10 +18,8 @@ app.get('/', homeController.index);
 app.get('/message', homeController.basic);
 app.get('/About', homeController.about);
 app.get('/add', homeController.newUser);
+app.post('/add', homeController.newUserPost);
 app.set('view engine', 'pug');
-app.get('/add', function (sReq, sRes) {
-    var email = sReq.query.email;
-});
 // set on debbuger
 mongoose.set('debug', true);
 // export our app

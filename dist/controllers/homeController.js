@@ -47,16 +47,18 @@ User.find().byNotDone().exec(function (err, user) {
     console.log(user);
 });
 // create new obiect
-let newTask = new Task({
-    name: '',
-    done: false,
-    deadline: new Date()
-});
+exports.newUserPost = (req, res) => {
+    let newTask = new Task({
+        name: req.body.myInput,
+        done: false,
+        deadline: new Date()
+    });
+    newTask.save();
+    return res.redirect('back');
+};
 let newUserr = new User({
-    email: 'kupa@s',
+    email: 's@s',
     password: "sadas"
 });
-// save
-newTask.save();
-newUserr.save();
+//newUserr.save();
 //# sourceMappingURL=homeController.js.map
