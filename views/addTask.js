@@ -27,10 +27,6 @@ list.addEventListener('click', function (ev) {
     }
 }, false);
 
- var mongoose = require('mongoose');
- var taskSchema = require("./db/schemas/task");
- var Task = mongoose.model('task', taskSchema);
-
 
 
 // Create a new list item when clicking on the "Add" button
@@ -59,18 +55,11 @@ function newElement() {
         }
     }
 
-
-
-    // Adding to database
-
     // Create object
     let newTask = new Task({
         name: inputValue,
         done: false,
         deadline: new Date()
     });
-
-    // Save
-    newTask.save();
 
 }
