@@ -14,11 +14,6 @@ exports.index = (req, res) => {
         title: "Home",
     });
 };
-exports.about = (req, res) => {
-    res.render("page-b", {
-        title: "About"
-    });
-};
 exports.newTask = (req, res) => {
     Task.find({}, function (err, task) {
         res.render("formTask", {
@@ -27,7 +22,7 @@ exports.newTask = (req, res) => {
     });
 };
 exports.editTask = (req, res) => {
-    Task.find({ name: 'gaming' }, function (err, task) {
+    Task.find({ name: req.params.name }, function (err, task) {
         res.render("editTask", {
             tasks: task
         });
@@ -47,19 +42,17 @@ exports.newTaskPost = (req, res) => {
     }
     return res.redirect('back');
 };
-exports.newEditPost = (req, res) => {
-    if (req.body.myInput === '') {
-        alert("You have to write something");
-    }
-    else {
-        let newTask = new Task({
-            name: req.body.myInput,
-            done: false,
-            deadline: new Date()
-        });
-        newTask.save();
-    }
-    return res.redirect('back');
+exports.newEditPut = (req, res) => {
+    Task.update({ name: req.params.name }, {
+        name: req.body.name,
+        done: false,
+        deadline: new Date
+    }, function (err, docs) {
+        if (err)
+            res.json(err);
+        else
+            res.redirect('/edit/' + req.params.name);
+    });
 };
 let newUserr = new User({
     email: 's@s',

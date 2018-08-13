@@ -8,7 +8,7 @@ block content
                 ul
                 each task in tasks
                     p #{task.name}  done: #{task.done}
-                input(type='text', name='myInput', id='myInput', placeholder='new name')
-                a(href='http://localhost:3000/:name/edit') save
+                input(type='text', name='editInput', id='editInput', placeholder='new name')
+                button.btn.btn-success(type='submit') save
                 br
                 br

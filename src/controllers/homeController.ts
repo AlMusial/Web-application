@@ -17,12 +17,6 @@ export let index = (req: Request, res: Response) => {
   });
 };
 
-export let about = (req: Request, res: Response) => {
-  res.render("page-b", {
-    title:"About"
-    
-  });
-};
 
 export let newTask = (req: Request, res: Response) => {
   Task.find({}, function (err: any, task: any){
@@ -32,7 +26,7 @@ export let newTask = (req: Request, res: Response) => {
 };
 
 export let editTask = (req: Request, res: Response) => {
-  Task.find({name:'gaming'}, function (err: any, task: any){
+  Task.find({name: req.params.name}, function (err: any, task: any){
   res.render("editTask", {
     tasks:task})
   });
@@ -54,19 +48,16 @@ export let newTaskPost = (req: Request, res: Response) => {
   return res.redirect('back');
 };
 
-export let newEditPost = (req: Request, res: Response) => {
-  if(req.body.myInput===''){
-    alert("You have to write something");
-  }
-  else{
-  let newTask = new Task({
-      name: req.body.myInput,
-      done: false,
-      deadline: new Date()
-  });
-  newTask.save();
-}
-  return res.redirect('back');
+export let newEditPut = (req: Request, res: Response) => {
+  Task.update({name: req.params.name},
+    {
+    name: req.body.name,
+    done: false,
+    deadline: new Date
+    }, function(err: any, docs: any){
+      if(err) res.json(err);
+      else res.redirect('/edit/' + req.params.name);
+    })
 }
 
 

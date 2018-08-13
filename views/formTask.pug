@@ -12,4 +12,4 @@ block content
                 ul
                 each task in tasks
                     p #{task.name}  done: #{task.done}
-                    a(href='http://localhost:3000/edit/#{task.name}') edit
+                    a(href='http://localhost:3000/edit/' + task.name) edit
