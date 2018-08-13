@@ -10,7 +10,7 @@ var taskSchema = new Schema({
 
 
 taskSchema.query.byNotDone = function() {
-    return this.where({ done: false });
+    return this;
 };
 
 // export schema to use it in diffrent file

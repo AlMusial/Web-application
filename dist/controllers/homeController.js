@@ -25,35 +25,24 @@ exports.basic = (req, res) => {
         randomText: req.query.text
     });
 };
-exports.newUser = (req, res) => {
-    res.render("formTask", {
-        title: "create new User",
-        tasks: req.query.text
+exports.newTask = (req, res) => {
+    Task.find().byNotDone().exec(function (err, task) {
+        res.render("formTask", { tasks: task });
     });
 };
-mongoose.connect('mongodb://localhost/TODO', {
-    useMongoClient: true,
-    autoIndex: false,
-    reconnectTries: Number.MAX_VALUE,
-    reconnectInterval: 500,
-    poolSize: 10,
-    // If not connected, return errors immediately rather than waiting for reconnect
-    bufferMaxEntries: 0
-});
-Task.find().byNotDone().exec(function (err, task) {
-    tasks: task;
-});
-User.find().byNotDone().exec(function (err, user) {
-    console.log(user);
-});
 // create new obiect
 exports.newUserPost = (req, res) => {
-    let newTask = new Task({
-        name: req.body.myInput,
-        done: false,
-        deadline: new Date()
-    });
-    newTask.save();
+    if (req.body.myInput === '') {
+        alert("You must write something!");
+    }
+    else {
+        let newTask = new Task({
+            name: req.body.myInput,
+            done: false,
+            deadline: new Date()
+        });
+        newTask.save();
+    }
     return res.redirect('back');
 };
 let newUserr = new User({

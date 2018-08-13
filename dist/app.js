@@ -17,9 +17,20 @@ app.listen(3000);
 app.get('/', homeController.index);
 app.get('/message', homeController.basic);
 app.get('/About', homeController.about);
-app.get('/add', homeController.newUser);
+app.get('/add', homeController.newTask);
 app.post('/add', homeController.newUserPost);
 app.set('view engine', 'pug');
+var Task = mongoose.model('task', taskSchema);
+var User = mongoose.model('user', userSchema);
+mongoose.connect('mongodb://localhost/TODO', {
+    useMongoClient: true,
+    autoIndex: false,
+    reconnectTries: Number.MAX_VALUE,
+    reconnectInterval: 500,
+    poolSize: 10,
+    // If not connected, return errors immediately rather than waiting for reconnect
+    bufferMaxEntries: 0
+});
 // set on debbuger
 mongoose.set('debug', true);
 // export our app
