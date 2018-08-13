@@ -48,18 +48,26 @@ export let newTaskPost = (req: Request, res: Response) => {
   return res.redirect('back');
 };
 
-export let newEditPut = (req: Request, res: Response) => {
+export let newEditPost = (req: Request, res: Response) => {
   Task.update({name: req.params.name},
     {
-    name: req.body.name,
+    name: req.body.editInput,
     done: false,
     deadline: new Date
     }, function(err: any, docs: any){
-      if(err) res.json(err);
-      else res.redirect('/edit/' + req.params.name);
+      if(err) res.json(err)
     })
+
+    return res.redirect('/add');
 }
 
+
+export let deleteTask = (req: Request, res:Response) => {
+  Task.remove({name: req.params.name},function(err:any){
+    if(err) res.json(err)
+  })
+  return res.redirect('/add');
+};
 
 let newUserr = new User({
   email:'s@s',

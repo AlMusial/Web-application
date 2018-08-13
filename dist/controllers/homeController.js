@@ -42,17 +42,23 @@ exports.newTaskPost = (req, res) => {
     }
     return res.redirect('back');
 };
-exports.newEditPut = (req, res) => {
+exports.newEditPost = (req, res) => {
     Task.update({ name: req.params.name }, {
-        name: req.body.name,
+        name: req.body.editInput,
         done: false,
         deadline: new Date
     }, function (err, docs) {
         if (err)
             res.json(err);
-        else
-            res.redirect('/edit/' + req.params.name);
     });
+    return res.redirect('/add');
+};
+exports.deleteTask = (req, res) => {
+    Task.remove({ name: req.params.name }, function (err) {
+        if (err)
+            res.json(err);
+    });
+    return res.redirect('/add');
 };
 let newUserr = new User({
     email: 's@s',

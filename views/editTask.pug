@@ -4,11 +4,12 @@ block content
     #content 
         #myDIV.header
             h2 Edit task: 
-            form.form-horizontal(id='edit-form', method='post', action='/edit/#{task.name}')
+            form.form-horizontal(id='edit-form', method='post')
                 ul
                 each task in tasks
                     p #{task.name}  done: #{task.done}
                 input(type='text', name='editInput', id='editInput', placeholder='new name')
                 button.btn.btn-success(type='submit') save
+                button.btn.btn-success(type='submit', name='deleteTask', id='deleteTask') delete
                 br
                 br
