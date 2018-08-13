@@ -1,67 +1,41 @@
 import express = require("express");
 import * as homeController from "./controllers/homeController"
-import * as mongoose from "mongoose";
-import * as morgan from "morgan";
-import path = require('path');
-import bodyParser = require('body-parser');
-var config = require('./config')
+
+var mongoose = require('mongoose'); // Adding mongoose 
 var app = express();
-var taskRoutes = require('./Routes')
-app.use('/api', taskRoutes)
-
-mongoose.connect(config.DB)
-
-// Sends static files  from the public path directory
-app.use(express.static(path.join(__dirname, '/')))
-
-// Use morgan to log request in dev mode
-app.use(morgan('dev'))
-
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({extended: true}))
-
-
-import Database = require("./db/Database")
-var mongoData: string ='mongodb://localhost:27017/TODO';
-var port = config.APP_PORT || 4000
-// Our Express APP config
-//const app = express();
-//app.set("port", process.env.PORT || 3000);
-app.listen(port) // Listen on port defined in config file
-console.log('App listening on port ' + port)
+var taskSchema = require("./db/schemas/task"); // load collection schema from task.ts
+var userSchema = require("./db/schemas/user");
+////////////////////////////////////////////////////////
+var bodyParser = require('body-parser');
+app.use( bodyParser.json() );       // to support JSON-encoded bodies
+app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
+  extended: true
+})); 
+///////////////////////////////////////////////////////
+app.listen(3000);
+app.get('/', homeController.index);
+app.get('/message', homeController.basic);
+app.get('/About',homeController.about);
+app.get('/add',homeController.newTask);
+app.post('/add', homeController.newUserPost);
+app.set('view engine', 'pug');
+var Task = mongoose.model('task', taskSchema);
+var User = mongoose.model('user', userSchema);
 
 
-//connect to database
-//mongoose.connect(mongoData);
-Database.connect().then(() =>{
-  // API Endpoints
-  app.get('/', homeController.index);
-  app.get('/message', homeController.basic);
-  app.get('/About',homeController.about);
-  app.get('/addUser',homeController.form);
-  app.get('/add',homeController.newTask);
-  app.set('view engine', 'pug');
-
-  }).catch(() =>{
-    process.exit(1);
-  });
-
-// Server index.html page when request to the root is made
-app.use(function (req, res, next) {
-  // Website you wish to allow to connect
-res.setHeader('Access-Control-Allow-Origin', 'http://localhost:' + port)
-
-  // Request methods you wish to allow
-res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE')
-
-  // Request headers you wish to allow
-res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type')
-
-  // Pass to next layer of middleware
-next()
-})
-
-// export our app
-export default app;
+mongoose.connect('mongodb://localhost/TODO', { // Connecting to db
+  useMongoClient: true,
+  autoIndex: false, // Don't build indexes
+  reconnectTries: Number.MAX_VALUE, // Never stop trying to reconnect
+  reconnectInterval: 500, // Reconnect every 500ms
+  poolSize: 10, // Maintain up to 10 socket connections
+  // If not connected, return errors immediately rather than waiting for reconnect
+  bufferMaxEntries: 0
+});
 
 
+// set on debbuger
+mongoose.set('debug', true);
+
+  // export our app
+  export default app;
