@@ -19,21 +19,37 @@ exports.about = (req, res) => {
         title: "About"
     });
 };
-exports.basic = (req, res) => {
-    res.render("page-c", {
-        title: "message",
-        randomText: req.query.text
-    });
-};
 exports.newTask = (req, res) => {
-    Task.find().byNotDone().exec(function (err, task) {
-        res.render("formTask", { tasks: task });
+    Task.find({}, function (err, task) {
+        res.render("formTask", {
+            tasks: task
+        });
     });
 };
-// create new obiect
-exports.newUserPost = (req, res) => {
+exports.editTask = (req, res) => {
+    Task.find({ name: 'gaming' }, function (err, task) {
+        res.render("editTask", {
+            tasks: task
+        });
+    });
+};
+exports.newTaskPost = (req, res) => {
     if (req.body.myInput === '') {
-        alert("You must write something!");
+        alert("You have to write something");
+    }
+    else {
+        let newTask = new Task({
+            name: req.body.myInput,
+            done: false,
+            deadline: new Date()
+        });
+        newTask.save();
+    }
+    return res.redirect('back');
+};
+exports.newEditPost = (req, res) => {
+    if (req.body.myInput === '') {
+        alert("You have to write something");
     }
     else {
         let newTask = new Task({
@@ -49,5 +65,4 @@ let newUserr = new User({
     email: 's@s',
     password: "sadas"
 });
-//newUserr.save();
 //# sourceMappingURL=homeController.js.map

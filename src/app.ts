@@ -14,10 +14,14 @@ app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
 ///////////////////////////////////////////////////////
 app.listen(3000);
 app.get('/', homeController.index);
-app.get('/message', homeController.basic);
 app.get('/About',homeController.about);
 app.get('/add',homeController.newTask);
-app.post('/add', homeController.newUserPost);
+app.post('/add', homeController.newTaskPost);
+app.get('/edit/',homeController.editTask);
+app.post('/edit',homeController.newTaskPost);
+app.get('/:name/edit', function(req, res){
+  res.render('editTask',{Task: req.body.name})
+})
 app.set('view engine', 'pug');
 var Task = mongoose.model('task', taskSchema);
 var User = mongoose.model('user', userSchema);
@@ -33,7 +37,15 @@ mongoose.connect('mongodb://localhost/TODO', { // Connecting to db
   bufferMaxEntries: 0
 });
 
-
+app.param('name', function(req, res, next, name){
+  Task.findByName(name, function(err:any, docs: any){
+    if(err)res.json(err);
+    else{
+      req.body.name = docs;
+      next();
+    }
+  })
+})
 // set on debbuger
 mongoose.set('debug', true);
 
