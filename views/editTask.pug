@@ -10,6 +10,7 @@ block content
                     p #{task.name}  done: #{task.done}
                 input(type='text', name='editInput', id='editInput', placeholder='new name')
                 button.btn.btn-success(type='submit') save
-                button.btn.btn-success(type='submit', name='deleteTask', id='deleteTask') delete
+                each task in tasks
+                    a(href='http://localhost:3000/edit/' + task.name + '/delete') delete
                 br
                 br

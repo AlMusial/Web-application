@@ -56,7 +56,8 @@ export let newEditPost = (req: Request, res: Response) => {
     deadline: new Date
     }, function(err: any, docs: any){
       if(err) res.json(err)
-    })
+    },
+  )
 
     return res.redirect('/add');
 }

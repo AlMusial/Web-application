@@ -20,7 +20,7 @@ app.post('/add', homeController.newTaskPost);
 app.get('/edit', homeController.editTask);
 app.get('/edit/:name', homeController.editTask);
 app.post('/edit/:name', homeController.newEditPost);
-app.get('/edit/delete', homeController.deleteTask);
+app.get('/edit/:name/delete', homeController.deleteTask);
 app.set('view engine', 'pug');
 var Task = mongoose.model('task', taskSchema);
 var User = mongoose.model('user', userSchema);
