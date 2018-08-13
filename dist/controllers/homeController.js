@@ -10,8 +10,13 @@ var userSchema = require(".././db/schemas/user");
 var Task = mongoose.model('task', taskSchema);
 var User = mongoose.model('user', userSchema);
 exports.index = (req, res) => {
-    res.render("page-a", {
+    res.render("home", {
         title: "Home",
+    });
+};
+exports.newUser = (req, res) => {
+    User.find().byNotDone().exec(function (err, user) {
+        res.render("formUser", { users: user });
     });
 };
 exports.newTask = (req, res) => {
@@ -42,16 +47,30 @@ exports.newTaskPost = (req, res) => {
     }
     return res.redirect('back');
 };
+exports.newUserPost = (req, res) => {
+    if ((req.body.emailUser === '') || (req.body.passwordUser === '')) { }
+    else {
+        let newUser = new User({
+            email: req.body.emailUser,
+            password: req.body.passwordUser
+        });
+        newUser.save();
+    }
+    return res.redirect('back');
+};
 exports.newEditPost = (req, res) => {
-    Task.update({ name: req.params.name }, {
-        name: req.body.editInput,
-        done: false,
-        deadline: new Date
-    }, function (err, docs) {
-        if (err)
-            res.json(err);
-    });
-    return res.redirect('/add');
+    if (req.body.editInput === '') { }
+    else {
+        Task.update({ name: req.params.name }, {
+            name: req.body.editInput,
+            done: false,
+            deadline: new Date
+        }, function (err, docs) {
+            if (err)
+                res.json(err);
+        });
+        return res.redirect('/add');
+    }
 };
 exports.deleteTask = (req, res) => {
     Task.remove({ name: req.params.name }, function (err) {
