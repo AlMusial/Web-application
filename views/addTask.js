@@ -9,6 +9,7 @@ for (i = 0; i < myNodelist.length; i++) {
     myNodelist[i].appendChild(span);
 }
 
+
 // Click on a close button to hide the current list item
 var close = document.getElementsByClassName("close");
 var i;
@@ -54,12 +55,4 @@ function newElement() {
             div.style.display = "none";
         }
     }
-
-    // Create object
-    let newTask = new Task({
-        name: inputValue,
-        done: false,
-        deadline: new Date()
-    });
-
 }

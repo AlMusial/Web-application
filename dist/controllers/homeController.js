@@ -10,30 +10,32 @@ var userSchema = require(".././db/schemas/user");
 var Task = mongoose.model('task', taskSchema);
 var User = mongoose.model('user', userSchema);
 exports.index = (req, res) => {
-    res.render("page-a", {
+    res.render("home", {
         title: "Home",
     });
 };
-exports.about = (req, res) => {
-    res.render("page-b", {
-        title: "About"
-    });
-};
-exports.basic = (req, res) => {
-    res.render("page-c", {
-        title: "message",
-        randomText: req.query.text
+exports.newUser = (req, res) => {
+    User.find().byNotDone().exec(function (err, user) {
+        res.render("formUser", { users: user });
     });
 };
 exports.newTask = (req, res) => {
-    Task.find().byNotDone().exec(function (err, task) {
-        res.render("formTask", { tasks: task });
+    Task.find({}, function (err, task) {
+        res.render("formTask", {
+            tasks: task
+        });
     });
 };
-// create new obiect
-exports.newUserPost = (req, res) => {
+exports.editTask = (req, res) => {
+    Task.find({ name: req.params.name }, function (err, task) {
+        res.render("editTask", {
+            tasks: task
+        });
+    });
+};
+exports.newTaskPost = (req, res) => {
     if (req.body.myInput === '') {
-        alert("You must write something!");
+        alert("You have to write something");
     }
     else {
         let newTask = new Task({
@@ -45,9 +47,40 @@ exports.newUserPost = (req, res) => {
     }
     return res.redirect('back');
 };
+exports.newUserPost = (req, res) => {
+    if ((req.body.emailUser === '') || (req.body.passwordUser === '')) { }
+    else {
+        let newUser = new User({
+            email: req.body.emailUser,
+            password: req.body.passwordUser
+        });
+        newUser.save();
+    }
+    return res.redirect('back');
+};
+exports.newEditPost = (req, res) => {
+    if (req.body.editInput === '') { }
+    else {
+        Task.update({ name: req.params.name }, {
+            name: req.body.editInput,
+            done: false,
+            deadline: new Date
+        }, function (err, docs) {
+            if (err)
+                res.json(err);
+        });
+        return res.redirect('/add');
+    }
+};
+exports.deleteTask = (req, res) => {
+    Task.remove({ name: req.params.name }, function (err) {
+        if (err)
+            res.json(err);
+    });
+    return res.redirect('/add');
+};
 let newUserr = new User({
     email: 's@s',
     password: "sadas"
 });
-//newUserr.save();
 //# sourceMappingURL=homeController.js.map

@@ -6,11 +6,10 @@ block content
             h2 My To Do List
             form.form-horizontal(id='task-form', method='post')
                 input(type='text', name='myInput', id='myInput', placeholder='Title...')
-                button.btn.btn-success(type='submit', onclick='newElement()') send
+                button.btn.btn-success(type='submit') send
                 br
                 br
                 ul
                 each task in tasks
-                    p #{task.name}
-                    script
-                        include addTask.js
+                    p #{task.name}  done: #{task.done}
+                    a(href='http://localhost:3000/edit/' + task.name) edit
