@@ -9,6 +9,7 @@ var taskSchema = new Schema({
 taskSchema.query.byNotDone = function () {
     return this;
 };
+var Task = mongoose.model('task', taskSchema);
 // export schema to use it in diffrent file
 module.exports = taskSchema;
 //# sourceMappingURL=task.js.map

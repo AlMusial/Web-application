@@ -1,8 +1,15 @@
 extends layout.pug
 
+block style
+    style
+        include style.css
+
 block content
-  #content
-    a(class='button' href='http://localhost:3000/addUser') create new User
-    br
-    br
-    a(class='button' href='http://localhost:3000/add') create new Task
+    #content
+        p #{randomText}
+        br
+        br
+        br
+        a(class='button' type='button' href='http://localhost:3000/addUser') Sign up
+        br
+        a(class='button' type='button' href='http://localhost:3000/auth/login') Sign in

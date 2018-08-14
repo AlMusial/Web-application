@@ -1,5 +1,7 @@
 import express = require("express");
 import * as homeController from "./controllers/homeController"
+const authRoutes = require("./controllers/router");
+const passportSetup = require("./config/passport-setup");
 
 var mongoose = require('mongoose'); // Adding mongoose 
 var app = express();
@@ -23,8 +25,10 @@ app.get('/edit/:name/delete',homeController.deleteTask);
 app.get('/addUser', homeController.newUser);
 app.post('/addUser', homeController.newUserPost);
 app.set('view engine', 'pug');
-var Task = mongoose.model('task', taskSchema);
-var User = mongoose.model('user', userSchema);
+
+//set up routes
+app.use('/auth', authRoutes);
+
 
 
 mongoose.connect('mongodb://localhost/TODO', { // Connecting to db
