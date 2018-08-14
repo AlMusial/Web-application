@@ -1,4 +1,4 @@
-const router = require('express').Router();
+var router = require('express').Router();
 var passport = require('passport');
 ///auth login
 router.get('/login', (req, res) => {
@@ -17,6 +17,6 @@ router.get('/logout', (req, res) => {
 module.exports = router;
 router.get('/google/redirect', passport.authenticate('google'), (req, res) => {
     //res.send(req.user)
-    res.redirect('/proile');
+    res.redirect('/profile/');
 });
-//# sourceMappingURL=router.js.map
+//# sourceMappingURL=auth-routes.js.map

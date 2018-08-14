@@ -1,4 +1,4 @@
-const router = require('express').Router();
+var router = require('express').Router();
 var passport = require('passport');
 ///auth login
 router.get('/login', (req: any, res:any)=>{
@@ -19,6 +19,7 @@ router.get('/logout', (req: any, res: any)=>{
 
  module.exports = router;
 
- router.get('/google/redirect',passport.authenticate('google'), (req: any, res: any)=>{
-   res.send('you reached the callback URL')
+ router.get('/google/redirect', passport.authenticate('google'), (req: any, res: any)=>{
+  //res.send(req.user)
+  res.redirect('/profile/');
  })

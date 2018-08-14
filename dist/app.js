@@ -2,14 +2,27 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const express = require("express");
 const homeController = require("./controllers/homeController");
-const authRoutes = require("./controllers/router");
+const authRoutes = require("./controllers/auth-routes");
+const profileRoutes = require("./controllers/profile-routes");
 const passportSetup = require("./config/passport-setup");
+const cookieSession = require('cookie-session');
+const keys = require("./config/keys");
+const passport = require('passport');
 var mongoose = require('mongoose'); // Adding mongoose 
 var app = express();
 var taskSchema = require("./db/schemas/task"); // load collection schema from task.ts
 var userSchema = require("./db/schemas/user");
+var Task = mongoose.model('task', taskSchema);
+var User = mongoose.model('user', userSchema);
 ////////////////////////////////////////////////////////
 var bodyParser = require('body-parser');
+app.use(cookieSession({
+    maxAge: 24 * 60 * 60 * 1000,
+    keys: [keys.session.cookieKey]
+}));
+//initialize passport
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(bodyParser.json()); // to support JSON-encoded bodies
 app.use(bodyParser.urlencoded({
     extended: true
@@ -28,6 +41,7 @@ app.post('/addUser', homeController.newUserPost);
 app.set('view engine', 'pug');
 //set up routes
 app.use('/auth', authRoutes);
+app.use('/profile', profileRoutes);
 mongoose.connect('mongodb://localhost/TODO', {
     useMongoClient: true,
     autoIndex: false,
