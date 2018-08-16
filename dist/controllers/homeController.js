@@ -79,8 +79,4 @@ exports.deleteTask = (req, res) => {
     });
     return res.redirect('/add');
 };
-let newUserr = new User({
-    email: 's@s',
-    password: "sadas"
-});
 //# sourceMappingURL=homeController.js.map

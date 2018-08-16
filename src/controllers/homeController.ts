@@ -88,9 +88,3 @@ export let deleteTask = (req: Request, res:Response) => {
   })
   return res.redirect('/add');
 };
-
-let newUserr = new User({
-  email:'s@s',
-  password: "sadas"
-});
-
