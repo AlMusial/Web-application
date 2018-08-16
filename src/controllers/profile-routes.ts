@@ -1,6 +1,7 @@
 var router = require('express').Router();
 import { Request, Response, Router } from "express";
-import * as homeController from "./homeController"
+import * as homeController from "./homeController";
+var mongoose = require('mongoose');
 var taskSchema = require(".././db/schemas/task");
 var userSchema = require(".././db/schemas/user");
 
@@ -87,10 +88,10 @@ export let deleteTask = (req: Request, res:Response) => {
 
         router.get('/',authCheck, newTask);
         router.post('/',authCheck, newTaskPost);
+        router.get('/edit/:name',editTask);
         router.get('/',editTask);
-        router.get('/',editTask);
-        router.post('/',newEditPost);
+        router.post('/edit/:name',newEditPost);
         router.get('/',deleteTask);
- 
+        router.get('/edit/:name/delete',deleteTask);
 
  module.exports = router;

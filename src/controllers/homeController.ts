@@ -16,6 +16,14 @@ export let index = (req: Request, res: Response) => {
   });
 };
 
+export let newUser = (req: Request, res: Response) => {
+  User.find().byNotDone().exec(function (err: any, user: any) {
+    res.render("formUser", { users: user });
+  })
+}
+
+
+
 
 export let newUserPost = (req: Request, res: Response) => {
   if ((req.body.emailUser === '') || (req.body.passwordUser === '')) { }
@@ -28,3 +36,5 @@ export let newUserPost = (req: Request, res: Response) => {
   }
   return res.redirect('back');
 }
+
+
