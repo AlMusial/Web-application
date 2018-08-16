@@ -1,3 +1,5 @@
 *.js
 *.map
 .txt
+.js
+node_modules
