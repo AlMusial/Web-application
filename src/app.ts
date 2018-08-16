@@ -31,7 +31,7 @@ app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
 app.listen(3000);
 app.get('/', homeController.index);
 app.get('/add',homeController.newTask);
-app.post('/add', homeController.newTaskPost);
+//app.post('/add', homeController.newTaskPost);
 app.get('/edit',homeController.editTask);
 app.get('/edit/:name',homeController.editTask);
 app.post('/edit/:name',homeController.newEditPost);
