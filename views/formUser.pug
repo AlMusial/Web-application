@@ -1,0 +1,24 @@
+extend layout.pug
+
+block style
+    style
+        include style.css
+
+block content
+    #content
+        form.form-horizontal(id='task-form', method='post')
+            label E-mail
+            br
+            input(type='email', id='emailUser', name='emailUser', placeholder='name@gmail.com')
+            br
+            br
+            br
+            label Password
+            br
+            input(type='password', id ='passwordUser', name='passwordUser')
+            br
+            br
+            br
+            button.btn.btn-success(type='submit') Add user
+            br
+            br

@@ -1,0 +1,15 @@
+extends layout.pug
+
+block style
+    style
+        include style.css
+
+block content
+    #content
+        p #{randomText}
+        br
+        br
+        br
+        //a(class='button' type='button' href='http://localhost:3000/addUser') Sign up
+        br
+        a(class='button' type='button' href='http://localhost:3000/auth/login') Sign in

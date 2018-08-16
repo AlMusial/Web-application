@@ -1,0 +1,16 @@
+extend layout.pug
+
+block style
+    style
+        include style.css
+
+block content
+    #content
+        form.form-horizontal(id='task-form', method='post')
+            ul
+                //a(href='http://localhost:3000/auth/logout') Logout
+                br
+                h2 Login
+                br
+                br
+                a(class="google-btn" href='http://localhost:3000/auth/google') Google+
