@@ -2,3 +2,4 @@
 *.map
 .txt
 node_modules
+keys.ts
