@@ -13,7 +13,7 @@ var User = mongoose.model('user', userSchema);
     if(!req.user){// if user is not logged in
          res.redirect('auth/login');
      }else{
-       next();
+       next();  
     }
  };
 

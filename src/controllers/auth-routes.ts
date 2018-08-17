@@ -7,7 +7,7 @@ router.get('/login', (req: any, res:any)=>{
 
 router.get('/google/redirect', passport.authenticate('google'), (req: any, res: any)=>{
   //res.send(req.user)
-  res.redirect('http://localhost:3000/profile#/add');
+  res.redirect('http://localhost:3000/profile');
  })
 
 // auth with google
