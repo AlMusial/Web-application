@@ -75,24 +75,23 @@ export let newUserPost = (req: Request, res: Response) => {
 export let newEditPost = (req, res) => {
   if(req.body.editInput === ''){}
   else{
-    /*Task.update({ name: req.params.name },
+    Task.update({ name: req.params.name },
       {
         name: req.body.editInput,
         done: false,
         deadline: new Date
       }, function (err: any, docs: any) {
-        if (err) res.json(err);*/
+    
       User.update({googleId: req.user.googleId, "tasks.name": req.params.name},
           {$set:{"tasks.$.name": req.body.editInput}}, function(err, result){})
-      }
-      return res.redirect('/profile');
+          return res.redirect('/profile');
+      })
+    }   
 }
 
 export let deleteTask = (req, res) => {
   Task.remove({name: req.params.name},function(err:any){
     User.findOne({googleId: req.user.googleId}).populate('Tasks').exec(function(err, user){
-    //if(err) res.json(err)
-    //user.tasks.find({name: req.params.name}, function (err: any, task: any) {
     user.tasks.pop({name: req.params.name});
     user.save();
     })
