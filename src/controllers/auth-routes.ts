@@ -3,8 +3,12 @@ var passport = require('passport');
 ///auth login
 router.get('/login', (req: any, res:any)=>{
   res.render('formSignIn')
-  res.send('login with..')
 });
+
+router.get('/google/redirect', passport.authenticate('google'), (req: any, res: any)=>{
+  //res.send(req.user)
+  res.redirect('http://localhost:3000/profile');
+ })
 
 // auth with google
 router.get('/google', passport.authenticate('google', {
@@ -13,13 +17,9 @@ router.get('/google', passport.authenticate('google', {
 
 // auth logout
 router.get('/logout', (req: any, res: any)=>{
-  //handle passport
-  res.send('logout')
+  req.logout();
+  res.redirect('/')
  });
 
  module.exports = router;
 
- router.get('/google/redirect', passport.authenticate('google'), (req: any, res: any)=>{
-  //res.send(req.user)
-  res.redirect('/profile/');
- })

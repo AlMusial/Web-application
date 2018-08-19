@@ -23,22 +23,22 @@ export let newUser = (req: Request, res: Response) => {
   })
 }
 
-export let newTask = (req: Request, res: Response) => {
-  Task.find({}, function (err: any, task: any){
+export let newTask = (req, res) => {
+  Task.find({}, function (err: any){
   res.render("formTask", {
-    tasks:task})
+    tasks: req.user.tasks})
   });
 };
 
-export let editTask = (req: Request, res: Response) => {
+export let editTask = (req, res) => {
   Task.find({name: req.params.name}, function (err: any, task: any){
   res.render("editTask", {
-    tasks:task})
+    tasks: task})
   });
 };
 
 
-export let newTaskPost = (req: Request, res: Response) => {
+export let newTaskPost = (req, res) => {
   if(req.body.myInput===''){
     alert("You have to write something");
   }
@@ -49,8 +49,13 @@ export let newTaskPost = (req: Request, res: Response) => {
       deadline: new Date()
   });
   newTask.save();
+  User.findOne({googleId: req.user.googleId}).populate('Tasks').exec(function(err, user){
+    user.tasks.push(newTask);
+    user.save();
+  });
+  
 }
-  return res.redirect('back');
+  return res.redirect('/profile');
 };
 
 
@@ -66,7 +71,8 @@ export let newUserPost = (req: Request, res: Response) => {
   return res.redirect('back');
 }
 
-export let newEditPost = (req: Request, res: Response) => {
+
+export let newEditPost = (req, res) => {
   if(req.body.editInput === ''){}
   else{
     Task.update({ name: req.params.name },
@@ -75,16 +81,20 @@ export let newEditPost = (req: Request, res: Response) => {
         done: false,
         deadline: new Date
       }, function (err: any, docs: any) {
-        if (err) res.json(err);
+    
+      User.update({googleId: req.user.googleId, "tasks.name": req.params.name},
+          {$set:{"tasks.$.name": req.body.editInput}}, function(err, result){})
+          return res.redirect('/profile');
       })
-      return res.redirect('/add');
-  }
-
+    }   
 }
 
-export let deleteTask = (req: Request, res:Response) => {
+export let deleteTask = (req, res) => {
   Task.remove({name: req.params.name},function(err:any){
-    if(err) res.json(err)
+    User.findOne({googleId: req.user.googleId}).populate('Tasks').exec(function(err, user){
+    user.tasks.pop({name: req.params.name});
+    user.save();
+    })
   })
-  return res.redirect('/add');
+  return res.redirect('/profile');
 };

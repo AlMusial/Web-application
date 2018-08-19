@@ -3,7 +3,7 @@ extend layout.pug
 block content
     #content 
         #myDIV.header
-            h2 My To Do List
+            h2  Your To Do List
             form.form-horizontal(id='task-form', method='post')
                 input(type='text', name='myInput', id='myInput', placeholder='Title...')
                 button.btn.btn-success(type='submit') send
@@ -12,4 +12,8 @@ block content
                 ul
                 each task in tasks
                     p #{task.name}  done: #{task.done}
-                    a(href='http://localhost:3000/edit/' + task.name) edit
+                    a(href='http://localhost:3000/profile/edit/' + task.name) edit
+        br
+        br
+        a(class='button' type='button' href='http://localhost:3000/auth/logout') Logout
+        br 
