@@ -1,19 +1,16 @@
 import express = require("express");
-import * as homeController from "./controllers/homeController";
 const authRoutes = require("./controllers/auth-routes");
 const profileRoutes = require("./controllers/profile-routes");
+const homeController = require("./controllers/homeController");
 const passportSetup = require("./config/passport-setup");
 const cookieSession = require('cookie-session');
 const keys = require("./config/keys");
 const passport = require('passport');
 var mongoose = require('mongoose');
 var app = express();
-
-var taskSchema = require("./db/schemas/task"); // load collection schema from task.ts
-var userSchema = require("./db/schemas/user");
-var Task = mongoose.model('task', taskSchema);
-var User = mongoose.model('user', userSchema);
 var bodyParser = require('body-parser');
+
+const cfgFile = require('./config.json');
 
 
 app.use(cookieSession({
@@ -29,18 +26,15 @@ app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
   extended: true
 })); 
 
-///////////////////////////////////////////////////////
-app.listen(3000);
-app.get('/', homeController.index);
-app.get('/addUser', homeController.newUser);
-app.post('/addUser', homeController.newUserPost);
+
+app.listen(3000); 
 app.set('view engine', 'pug');
+app.use('/', homeController);
 app.use('/auth', authRoutes);
 app.use('/profile', profileRoutes);
 
 
-
-mongoose.connect('mongodb://localhost/TODO', { // Connecting to db
+mongoose.connect(cfgFile.dbHost, { // Connecting to db
   useMongoClient: true,
   autoIndex: false, // Don't build indexes
   reconnectTries: Number.MAX_VALUE, // Never stop trying to reconnect

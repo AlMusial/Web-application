@@ -1,11 +1,14 @@
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
+var userSchema = require("./user");
+var User = mongoose.model('user', userSchema);
 
 // mapped object from db
 var taskSchema = new Schema({
     name: String,
     deadline: Date,
-    done: Boolean
+    done: Boolean,
+    userId: String
 }, { collection: 'task' });//static
 
 

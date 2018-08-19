@@ -12,7 +12,7 @@ block content
                 ul
                 each task in tasks
                     p #{task.name}  done: #{task.done}
-                    a(href='http://localhost:3000/profile/edit/' + task.name) edit
+                    a(href='http://localhost:3000/profile/edit/' + task._id) edit
         br
         br
         a(class='button' type='button' href='http://localhost:3000/auth/logout') Logout
