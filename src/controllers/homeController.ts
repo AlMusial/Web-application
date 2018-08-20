@@ -14,23 +14,6 @@ export let index = (req, res) => {
     title: "Home",
   });
 };
-/*
-export let newUser = (req: Request, res: Response) => {
-  User.find().byNotDone().exec(function (err: any, user: any) {
-    res.render("formUser", { users: user });
-  })
-}
-export let newUserPost = (req: Request, res: Response) => {
-  if ((req.body.emailUser === '') || (req.body.passwordUser === '')) { }
-  else {
-    let newUser = new User({
-      email: req.body.emailUser,
-      password: req.body.passwordUser
-    });
-    newUser.save();
-  }
-  return res.redirect('back');
-}
-*/
+
 router.get('/',index);
 module.exports = router;
