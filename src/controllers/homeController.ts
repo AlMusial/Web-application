@@ -14,6 +14,12 @@ export let index = (req, res) => {
     title: "Home",
   });
 };
+export let errorPage = (req, res) => {
+  res.render("error", {
+    title: "Error",
+  });
+};
 
 router.get('/',index);
+router.get('/error', errorPage);
 module.exports = router;

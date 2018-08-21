@@ -29,12 +29,14 @@ passport.use(
             if (currentUser) {
                 done(null, currentUser);
             } else {
-                new User({
+               return new User({
                     username: profile.displayName,
                     googleId: profile.id
-                }).save().then((newUser) => {
-                    console.log('new user created: ' + newUser);
-                    done(null, newUser);
+                }).save().then((User) => {
+                    console.log('new user created: ' + User);
+                    done(null, User);
+                }).catch((err,res) =>{
+                    return res.redirect('/error')
                 });
             }
         });

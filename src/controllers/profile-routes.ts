@@ -38,51 +38,55 @@ export let editTask = (req, res) => {
   });
 };
 
-
-export let newTaskPost = (req, res) => {
-  new Promise((resolve, reject) =>{
-    if (req.body.myInput === '') {}
-    else {
-      let newTask = new Task({
-        name: req.body.myInput,
-        done: false,
-        deadline: new Date(),
-        userId: req.user.googleId
-      });
-      resolve(newTask.save());
-    }
-  }).then(()=>{
-    return res.redirect('/profile');
-  })
-};
+export let newTaskPost = ((req, res) => {
+  if (req.body.myInput === ''){
+    return res.redirect('/error')
+  }
+  else {
+    let newTask = new Task({
+      name: req.body.myInput,
+      done: false,
+      deadline: new Date(),
+      userId: req.user.googleId
+    });
+    return (newTask.save()).then(() => {
+      return res.redirect('/profile');
+    }).catch((err)=>{
+      throw new Error('something went wrong :(');
+    })
+  }
+});
 
 
 
 export let newEditPost = (req, res) => {
 
-  new Promise((resolve) => {
-    if (req.body.editInput === '') { }
-    else {
-      resolve(Task.update({ _id: req.params.id },
-        {
-          name: req.body.editInput,
-          done: false,
-          deadline: new Date(),
-          userId: req.user.googleId
-        }))
-    }
-  }).then(() => {
-    return res.redirect('/profile');
-  })
+  if (req.body.editInput === '') {return res.redirect('/error') }
+  else {
+    return (Task.update({ _id: req.params.id },
+      {
+        name: req.body.editInput,
+        done: false,
+        deadline: new Date(),
+        userId: req.user.googleId
+      })).then(() => {
+        return res.redirect('/profile');
+      }).catch((err) => {
+        return res.redirect('/error')
+        console.error(err);
+      })
+  }
 }
 
 
 
 export let deleteTask = (req, res) => {
-  new Promise((resolve)=>{
-    resolve(Task.remove({ _id: req.params.id }))
-  }).then
-    return res.redirect('/profile');
+  return (Task.remove({ _id: req.params.id })).then(() => {
+    return res.redirect('/profile')
+  }).catch((err) => {
+    return res.redirect('/error')
+    res.render("error", {error:err});
+  })
 
 };
 

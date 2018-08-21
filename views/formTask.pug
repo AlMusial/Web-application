@@ -6,13 +6,14 @@ block content
             h2  Your To Do List
             form.form-horizontal(id='task-form', method='post')
                 input(type='text', name='myInput', id='myInput', placeholder='Title...')
-                button.btn.btn-success(type='submit') send
+                button.btn.btn-success(class ='addBtn', id= 'sendNewTask', type='button') add
                 br
                 br
-                ul
-                each task in tasks
-                    p #{task.name}  done: #{task.done}
-                    a(href='http://localhost:3000/profile/edit/' + task._id) edit
+                ul#myUl
+                    each task in tasks
+                        li
+                            p #{task.name}  done: #{task.done}
+                            a(id='editTask', href='http://localhost:3000/profile/edit/' + task._id) edit
         br
         br
         a(class='button' type='button' href='http://localhost:3000/auth/logout') Logout
