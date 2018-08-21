@@ -11,6 +11,6 @@ block content
                 input(type='text', name='editInput', id='editInput', placeholder='new name')
                 button.btn.btn-success(id='saveEditTask', type='submit') save
                 each task in tasks
-                    a(href='http://localhost:3000/profile/edit/delete/' + task._id) delete
+                    a(id='deleteTask', href='http://localhost:3000/profile/edit/delete/' + task._id) delete
                 br
                 br

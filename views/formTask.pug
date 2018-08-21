@@ -4,17 +4,17 @@ block content
     #content 
         #myDIV.header
             h2  Your To Do List
-            form.form-horizontal(id='task-form', method='post')
-                input(type='text', name='myInput', id='myInput', placeholder='Title...')
-                button.btn.btn-success(class ='addBtn', id= 'sendNewTask', type='button') add
-                br
-                br
-                ul#myUl
-                    each task in tasks
-                        li
-                            p #{task.name}  done: #{task.done}
-                            a(id='editTask', href='http://localhost:3000/profile/edit/' + task._id) edit
+            input(type='text', name='myInput', id='myInput', placeholder='Title...')
+            button.btn.btn-success(type='submit', id='sendNewTask' class='addBtn') Add
+            br
+            br
+            ul#myUl
+                each task in tasks
+                    li
+                        p #{task.name} 
+                        a(id='editTask', href='http://localhost:3000/profile/edit/' + task._id) edit
+                        p
+                        a(id='deleteTask', href='http://localhost:3000/profile/edit/delete/' + task._id) delete
         br
         br
         a(class='button' type='button' href='http://localhost:3000/auth/logout') Logout
-        br 

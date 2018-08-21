@@ -7,16 +7,6 @@ var userSchema = require(".././db/schemas/user");
 var Task = mongoose.model('task', taskSchema);
 var User = mongoose.model('user', userSchema);
 
-export let index = (req, res) => {
-  res.render("home", {
-    title: "Home",
-  });
-};
-export let errorPage = (req, res) => {
-  res.render("error", {
-    title: "Error",
-  });
-};
 
 router.get("/getTasks", (req, res) => {
     res.setHeader('Content-Type', 'application/json');
@@ -24,6 +14,14 @@ router.get("/getTasks", (req, res) => {
         res.send(task);
     });
     
+});
+router.post("/deleteTask", (req, res) => {
+  res.setHeader('Content-Type', 'application/json');
+  return (Task.remove({ _id: req.params.id })).then(() => {
+    res.send(JSON.stringify({status: true}));
+  }).catch((err)=>{
+    res.send(JSON.stringify({status: false}));
+  });
 });
 
 router.post("/addNewTask", (req, res) => {
