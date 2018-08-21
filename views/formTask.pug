@@ -14,7 +14,7 @@ block content
                         p #{task.name} 
                         a(id='editTask', href='http://localhost:3000/profile/edit/' + task._id) edit
                         p
-                        a(id='deleteTask', href='http://localhost:3000/profile/edit/delete/' + task._id) delete
+                        button.btn(type='button', class='deleteTask') delete
         br
         br
         a(class='button' type='button' href='http://localhost:3000/auth/logout') Logout
