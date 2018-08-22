@@ -1,4 +1,6 @@
+*.js
 *.map
 .txt
 node_modules
 keys.ts
+!dist/js

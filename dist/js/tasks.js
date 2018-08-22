@@ -22,7 +22,7 @@ $(() => {
     });
 
     $(".deleteTask").click(function () {
-        var temp = this.parentElement;
+        var temp = this.parent.Remove;
         temp.style.display = "none";
         $.get('/getTasks');
         let taskId = $("#taskId").val();
@@ -31,7 +31,6 @@ $(() => {
             taskId: taskId
         });
     })
-
 });
 
 
@@ -40,7 +39,7 @@ function newElement() {
 
         let html = $("#myUl").html();
         let i = data.length - 1;
-        html += `<li><p>${data[i].name}</p><a href=\"http://localhost:3000/profile/edit/${data[i]._id}\">edit</a><br></br><button class='deleteTask', type='button'>delete</button></li>`;
+        html += `<li><p>${data[i].name} done: ${data[i].done}</p><a href=\"http://localhost:3000/profile/edit/${data[i]._id}\">edit</a><br></br><button class='deleteTask', type='button'>delete</button></li>`;
         $("#myUl").html(html);
     });
 }

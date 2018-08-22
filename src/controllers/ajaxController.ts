@@ -17,8 +17,7 @@ router.get("/getTasks", (req, res) => {
 });
 router.post("/deleteTask", (req, res) => {
   res.setHeader('Content-Type', 'application/json');
-
-  return (Task.remove({ _id: req.body.taskId })).then(() => {
+  return Task.remove({ _id: req.body.taskId }).then(() => {
     res.send(JSON.stringify({status: true}));
   }).catch((err)=>{
     res.send(JSON.stringify({status: false}));
