@@ -11,7 +11,7 @@ block content
             ul#myUl
                 each task in tasks
                     li
-                        p #{task.name} 
+                        p #{task.name}
                         a(id='editTask', href='http://localhost:3000/profile/edit/' + task._id) edit
                         p
                         button.btn(type='button', class='deleteTask') delete

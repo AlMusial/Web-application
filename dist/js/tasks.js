@@ -19,27 +19,24 @@ $(() => {
                 alert("Something went wrong.");
             }
         });
-    });
+    })
 
-    $(".deleteTask").click(function () {
-        var temp = this.parent.Remove;
-        temp.style.display = "none";
-        $.get('/getTasks');
-        let taskId = $("#taskId").val();
-        //$("li").this.remove();
+    $('body').on('click', '.deleteTask', function () {
+        
+        let taskId = $(this).siblings("input").val();
+        $(this).closest("li").remove();
+        $.get('/getTasks')
         $.post("/ajax/deleteTask", {
             taskId: taskId
+        })
         });
-    })
-});
-
+    }) 
 
 function newElement() {
     $.get("/ajax/getTasks", (data) => {
-
         let html = $("#myUl").html();
-        let i = data.length - 1;
-        html += `<li><p>${data[i].name} done: ${data[i].done}</p><a href=\"http://localhost:3000/profile/edit/${data[i]._id}\">edit</a><br></br><button class='deleteTask', type='button'>delete</button></li>`;
+        let i= data.length-1;
+        html += `<li><p>${data[i].name}</p><a href=\"http://localhost:3000/profile/edit/${data[i]._id}\">edit</a><br></br><button class='deleteTask', type='button'>delete</button><input type="hidden", name="taskId", id="taskId", value=task._id></input></li>`;
         $("#myUl").html(html);
     });
 }
