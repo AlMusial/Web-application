@@ -15,6 +15,7 @@ block content
                         a(id='editTask', href='http://localhost:3000/profile/edit/' + task._id) edit
                         p
                         button.btn(type='button', class='deleteTask') delete
+                        input(type="hidden", name="taskId", id="taskId", value=task._id)
         br
         br
         a(class='button' type='button' href='http://localhost:3000/auth/logout') Logout
