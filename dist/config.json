@@ -1,0 +1,4 @@
+{
+    "dbHost": "mongodb://localhost/TODO",
+    "redirectUrl": "http://localhost:3000/profile"
+}

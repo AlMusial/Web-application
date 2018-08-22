@@ -1,13 +1,16 @@
 var router = require('express').Router();
 var passport = require('passport');
+const cfgFile = require('../config.json');
+
+
 ///auth login
-router.get('/login', (req: any, res:any)=>{
+router.get('/login', (req, res)=>{
   res.render('formSignIn')
 });
 
-router.get('/google/redirect', passport.authenticate('google'), (req: any, res: any)=>{
+router.get('/google/redirect', passport.authenticate('google'), (req, res)=>{
   //res.send(req.user)
-  res.redirect('http://localhost:3000/profile');
+  res.redirect(cfgFile.redirectUrl);
  })
 
 // auth with google
@@ -16,7 +19,7 @@ router.get('/google', passport.authenticate('google', {
 }));
 
 // auth logout
-router.get('/logout', (req: any, res: any)=>{
+router.get('/logout', (req, res)=>{
   req.logout();
   res.redirect('/')
  });

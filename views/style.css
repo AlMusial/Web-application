@@ -63,6 +63,17 @@
     color: white;
 }
 
+.button1
+{
+    font-size: 30px;
+    line-height:25px;
+    position: relative;
+    width: auto;
+    padding: 5px;
+    text-decoration: none;
+    display: block;
+    color: white;
+}
 /* Include the padding and border in an element's total width and height */
 * {
     box-sizing: border-box;
@@ -164,8 +175,8 @@ input {
 .addBtn {
     padding: 10px;
     width: 25%;
-    background: #d9d9d9;
-    color: #555;
+    background: rgb(4,4,41);
+    color: white;
     float: left;
     text-align: center;
     font-size: 16px;
@@ -175,7 +186,7 @@ input {
 }
 
 .addBtn:hover {
-    background-color: #bbb;
+    background-color: rgb(68, 65, 92);
 }
 
 .google-btn{
